@@ -1,0 +1,463 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "",
+    "version": ""
+  },
+  "host": "192.168.2.34",
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "articles/": {
+      "get": {
+        "summary": "Get all articles",
+        "operationId": "GetAll",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/getArticleRes"
+            }
+          }
+        },
+        "requestBody": {},
+        "tags": [
+          "article"
+        ]
+      },
+      "post": {
+        "summary": "Create article",
+        "operationId": "Create",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/messageRes"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/createArticleReq"
+            }
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "article"
+        ]
+      }
+    },
+    "articles/{article_id}": {
+      "get": {
+        "summary": "Get article by id",
+        "operationId": "GetById",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/getArticleRes"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "article_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "article"
+        ]
+      },
+      "delete": {
+        "summary": "Delete article",
+        "operationId": "Delete",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/messageRes"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "article_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/deleteArticleReq"
+            }
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "article"
+        ]
+      },
+      "put": {
+        "summary": "Update article",
+        "operationId": "UpdateArticle",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/messageRes"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "article_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/updateArticleReq"
+            }
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "article"
+        ]
+      }
+    },
+    "auth/signIn": {
+      "get": {
+        "summary": "Sign In",
+        "operationId": "SignIn",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/signInRes"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "username",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "password",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "auth/signUp": {
+      "post": {
+        "summary": "Sign up",
+        "operationId": "SignUp",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/messageRes"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/signUpReq"
+            }
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "user/profile": {
+      "get": {
+        "summary": "Get profile by token",
+        "operationId": "GetByToken",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/getProfileRes"
+            }
+          }
+        },
+        "requestBody": {},
+        "tags": [
+          "user"
+        ]
+      },
+      "put": {
+        "summary": "Update profile",
+        "operationId": "Update",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/messageRes"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/updateProfileReq"
+            }
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "user"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "createArticleReq": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "body": {
+          "type": "string"
+        }
+      },
+      "title": "createArticleReq",
+      "required": [
+        "title",
+        "body"
+      ]
+    },
+    "deleteArticleReq": {
+      "type": "object",
+      "properties": {
+        "article_id": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "deleteArticleReq",
+      "required": [
+        "article_id"
+      ]
+    },
+    "getArticleReq": {
+      "type": "object",
+      "properties": {
+        "article_id": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "getArticleReq",
+      "required": [
+        "article_id"
+      ]
+    },
+    "getArticleRes": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "body": {
+          "type": "string"
+        }
+      },
+      "title": "getArticleRes",
+      "required": [
+        "title",
+        "body"
+      ]
+    },
+    "getProfileRes": {
+      "type": "object",
+      "properties": {
+        "firstname": {
+          "type": "string"
+        },
+        "lastname": {
+          "type": "string"
+        },
+        "age": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "getProfileRes",
+      "required": [
+        "firstname",
+        "lastname",
+        "age"
+      ]
+    },
+    "messageRes": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string"
+        }
+      },
+      "title": "messageRes",
+      "required": [
+        "message"
+      ]
+    },
+    "signInReq": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      },
+      "title": "signInReq",
+      "required": [
+        "username",
+        "password"
+      ]
+    },
+    "signInRes": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string"
+        }
+      },
+      "title": "signInRes",
+      "required": [
+        "token"
+      ]
+    },
+    "signUpReq": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "firstname": {
+          "type": "string"
+        },
+        "lastname": {
+          "type": "string"
+        },
+        "age": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "signUpReq",
+      "required": [
+        "username",
+        "password",
+        "firstname",
+        "lastname",
+        "age"
+      ]
+    },
+    "updateArticleReq": {
+      "type": "object",
+      "properties": {
+        "article_id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "title": {
+          "type": "string"
+        },
+        "body": {
+          "type": "string"
+        }
+      },
+      "title": "updateArticleReq",
+      "required": [
+        "article_id",
+        "title",
+        "body"
+      ]
+    },
+    "updateProfileReq": {
+      "type": "object",
+      "properties": {
+        "firstname": {
+          "type": "string"
+        },
+        "lastname": {
+          "type": "string"
+        },
+        "age": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "updateProfileReq",
+      "required": [
+        "firstname",
+        "lastname",
+        "age"
+      ]
+    }
+  },
+  "securityDefinitions": {
+    "apiKey": {
+      "type": "apiKey",
+      "description": "Enter JWT Bearer token **_only_**",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+  "security": [
+    {
+      "apiKey": []
+    }
+  ]
+}

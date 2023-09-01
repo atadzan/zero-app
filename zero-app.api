@@ -1,0 +1,80 @@
+syntax = "v1"
+
+import "models.api"
+
+@server(
+	group: auth
+	prefix: auth
+)
+
+service zero-app-api {
+	@doc (
+		summary: "Sign up"
+	)
+	@handler SignUp
+	post /signUp(signUpReq) returns(messageRes)
+
+	@doc(
+		summary: "Sign In"
+	)
+	@handler SignIn
+	get /signIn(signInReq) returns(signInRes)
+}
+
+@server(
+	group: user
+	prefix: user
+	middleware:  UserIdentityMiddleware
+)
+
+service zero-app-api {
+	@doc (
+		summary: "Get profile by token"
+	)
+	@handler GetByToken
+	get /profile returns(getProfileRes)
+
+	@doc(
+		summary: "Update profile"
+	)
+	@handler Update
+	put /profile (updateProfileReq) returns(messageRes)
+}
+
+@server(
+	group: article
+	prefix: articles
+	middleware: UserIdentityMiddleware
+)
+
+service zero-app-api {
+	@doc(
+		summary: "Create article"
+	)
+	@handler Create
+	post /(createArticleReq) returns(messageRes)
+
+	@doc(
+		summary: "Get article by id"
+	)
+	@handler GetById
+	get /:article_id(getArticleReq) returns (getArticleRes)
+
+	@doc(
+		summary: "Get all articles"
+	)
+	@handler GetAll
+	get / returns (getArticleRes)
+
+	@doc(
+		summary: "Update article"
+	)
+	@handler UpdateArticle
+	put /:article_id (updateArticleReq) returns(messageRes)
+
+	@doc(
+		summary: "Delete article"
+	)
+	@handler Delete
+	delete /:article_id(deleteArticleReq) returns(messageRes)
+}
