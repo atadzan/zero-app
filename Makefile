@@ -8,3 +8,7 @@ docs-generate:
 run-docs:
 	docker stop zero-docs
 	docker run --rm -p 8083:8080 -e SWAGGER_JSON=/foo/zero-app.json -v $PWD:/foo -d --name zero-docs swaggerapi/swagger-ui
+generate-proto:
+	goctl rpc template -o auth.proto
+generate-rpc:
+	goctl rpc protoc auth.proto --go_out=. --go-grpc_out=. --zrpc_out=.
