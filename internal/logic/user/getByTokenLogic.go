@@ -24,7 +24,6 @@ func NewGetByTokenLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetByT
 }
 
 func (l *GetByTokenLogic) GetByToken() (resp *types.GetProfileRes, err error) {
-	// todo: add your logic here and delete this line
 
 	return
 }
