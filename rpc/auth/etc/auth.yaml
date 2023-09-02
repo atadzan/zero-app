@@ -4,3 +4,6 @@ Etcd:
   Hosts:
   - 127.0.0.1:2379
   Key: auth.rpc
+
+DataSource: postgres://tmtube_admin:3Qv@e8U0ImT@127.0.0.1:5454/tmtube?sslmode=disable
+Table: test_users

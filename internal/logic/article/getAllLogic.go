@@ -9,21 +9,21 @@ import (
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
-type GetAllArticlesLogic struct {
+type GetAllLogic struct {
 	logx.Logger
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
 }
 
-func NewGetAllArticlesLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetAllArticlesLogic {
-	return &GetAllArticlesLogic{
+func NewGetAllLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetAllLogic {
+	return &GetAllLogic{
 		Logger: logx.WithContext(ctx),
 		ctx:    ctx,
 		svcCtx: svcCtx,
 	}
 }
 
-func (l *GetAllArticlesLogic) GetAllArticles() (resp []types.GetArticleRes, err error) {
+func (l *GetAllLogic) GetAll() (resp *types.GetArticleRes, err error) {
 	// todo: add your logic here and delete this line
 
 	return

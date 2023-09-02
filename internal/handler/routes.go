@@ -35,17 +35,17 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 			[]rest.Route{
 				{
 					Method:  http.MethodGet,
-					Path:    "/profile",
+					Path:    "/",
 					Handler: user.GetByTokenHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodPut,
-					Path:    "/profile",
+					Path:    "/",
 					Handler: user.UpdateHandler(serverCtx),
 				},
 			}...,
 		),
-		rest.WithPrefix("/user"),
+		rest.WithPrefix("/user/profile"),
 	)
 
 	server.AddRoutes(
@@ -70,7 +70,7 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				{
 					Method:  http.MethodPut,
 					Path:    "/:article_id",
-					Handler: article.UpdateArticleHandler(serverCtx),
+					Handler: article.UpdateHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodDelete,

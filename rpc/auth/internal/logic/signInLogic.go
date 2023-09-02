@@ -24,7 +24,13 @@ func NewSignInLogic(ctx context.Context, svcCtx *svc.ServiceContext) *SignInLogi
 }
 
 func (l *SignInLogic) SignIn(in *auth.SignInReq) (*auth.SignInRes, error) {
-	// todo: add your logic here and delete this line
+	generatePasswordHash(&in.Password)
+	row, err := l.svcCtx.Model.FindOne(l.ctx, 3)
+	if err != nil {
+		return &auth.SignInRes{}, err
+	}
 
-	return &auth.SignInRes{}, nil
+	return &auth.SignInRes{
+		Token: generateToken(row.Id),
+	}, nil
 }

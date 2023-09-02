@@ -11,19 +11,19 @@ service zero-app-api {
 	@doc (
 		summary: "Sign up"
 	)
-	@handler SignUp
+	@handler signUp
 	post /signUp(signUpReq) returns(messageRes)
 
 	@doc(
 		summary: "Sign In"
 	)
-	@handler SignIn
+	@handler signIn
 	get /signIn(signInReq) returns(signInRes)
 }
 
 @server(
 	group: user
-	prefix: user
+	prefix: user/profile
 	middleware:  UserIdentityMiddleware
 )
 
@@ -31,14 +31,14 @@ service zero-app-api {
 	@doc (
 		summary: "Get profile by token"
 	)
-	@handler GetByToken
-	get /profile returns(getProfileRes)
+	@handler getByToken
+	get / returns(getProfileRes)
 
 	@doc(
 		summary: "Update profile"
 	)
-	@handler Update
-	put /profile (updateProfileReq) returns(messageRes)
+	@handler update
+	put / (updateProfileReq) returns(messageRes)
 }
 
 @server(
@@ -69,7 +69,7 @@ service zero-app-api {
 	@doc(
 		summary: "Update article"
 	)
-	@handler UpdateArticle
+	@handler Update
 	put /:article_id (updateArticleReq) returns(messageRes)
 
 	@doc(

@@ -2,6 +2,7 @@ package logic
 
 import (
 	"context"
+	"zero-app/rpc/auth/model"
 
 	"zero-app/rpc/auth/auth"
 	"zero-app/rpc/auth/internal/svc"
@@ -24,7 +25,18 @@ func NewSignUpLogic(ctx context.Context, svcCtx *svc.ServiceContext) *SignUpLogi
 }
 
 func (l *SignUpLogic) SignUp(in *auth.SignUpReq) (*auth.SignUpRes, error) {
-	// todo: add your logic here and delete this line
+	generatePasswordHash(&in.Password)
+	_, err := l.svcCtx.Model.Insert(l.ctx, &model.TestUsers{
+		Lastname: in.Lastname,
+		Username: in.Username,
+		Password: in.Password,
+		Age:      in.Age,
+	})
+	if err != nil {
+		return &auth.SignUpRes{}, err
+	}
 
-	return &auth.SignUpRes{}, nil
+	return &auth.SignUpRes{
+		Message: "success",
+	}, nil
 }

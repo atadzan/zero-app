@@ -1,4 +1,4 @@
-package article
+package user
 
 import (
 	"context"
@@ -9,21 +9,22 @@ import (
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
-type GetArticleLogic struct {
+type GetByTokenLogic struct {
 	logx.Logger
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
 }
 
-func NewGetArticleLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetArticleLogic {
-	return &GetArticleLogic{
+func NewGetByTokenLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetByTokenLogic {
+	return &GetByTokenLogic{
 		Logger: logx.WithContext(ctx),
 		ctx:    ctx,
 		svcCtx: svcCtx,
 	}
 }
 
-func (l *GetArticleLogic) GetArticle(req *types.GetArticleReq) (resp *types.GetArticleRes, err error) {
+func (l *GetByTokenLogic) GetByToken() (resp *types.GetProfileRes, err error) {
 	// todo: add your logic here and delete this line
-	return &types.GetArticleRes{}, nil
+
+	return
 }
