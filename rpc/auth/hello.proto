@@ -25,7 +25,22 @@ message signInRes {
   string token = 1;
 }
 
+enum Hello {
+  Priwet = 0;
+  Salam = 1;
+}
+
+
+message enumReq {
+  Hello input = 1;
+}
+
+message enumRes{
+  string message = 1;
+}
+
 service auth {
   rpc SignIn(signInReq) returns(signInRes);
   rpc SignUp(signUpReq) returns(signUpRes);
+  rpc EnumTest(enumReq) returns(enumRes);
 }

@@ -13,6 +13,8 @@ import (
 )
 
 type (
+	EnumReq   = auth.EnumReq
+	EnumRes   = auth.EnumRes
 	SignInReq = auth.SignInReq
 	SignInRes = auth.SignInRes
 	SignUpReq = auth.SignUpReq
@@ -21,6 +23,7 @@ type (
 	Auth interface {
 		SignIn(ctx context.Context, in *SignInReq, opts ...grpc.CallOption) (*SignInRes, error)
 		SignUp(ctx context.Context, in *SignUpReq, opts ...grpc.CallOption) (*SignUpRes, error)
+		EnumTest(ctx context.Context, in *EnumReq, opts ...grpc.CallOption) (*EnumRes, error)
 	}
 
 	defaultAuth struct {
@@ -42,4 +45,9 @@ func (m *defaultAuth) SignIn(ctx context.Context, in *SignInReq, opts ...grpc.Ca
 func (m *defaultAuth) SignUp(ctx context.Context, in *SignUpReq, opts ...grpc.CallOption) (*SignUpRes, error) {
 	client := auth.NewAuthClient(m.cli.Conn())
 	return client.SignUp(ctx, in, opts...)
+}
+
+func (m *defaultAuth) EnumTest(ctx context.Context, in *EnumReq, opts ...grpc.CallOption) (*EnumRes, error) {
+	client := auth.NewAuthClient(m.cli.Conn())
+	return client.EnumTest(ctx, in, opts...)
 }

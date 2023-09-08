@@ -31,3 +31,8 @@ func (s *AuthServer) SignUp(ctx context.Context, in *auth.SignUpReq) (*auth.Sign
 	l := logic.NewSignUpLogic(ctx, s.svcCtx)
 	return l.SignUp(in)
 }
+
+func (s *AuthServer) EnumTest(ctx context.Context, in *auth.EnumReq) (*auth.EnumRes, error) {
+	l := logic.NewEnumTestLogic(ctx, s.svcCtx)
+	return l.EnumTest(in)
+}

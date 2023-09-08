@@ -19,8 +19,9 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Auth_SignIn_FullMethodName = "/auth.auth/SignIn"
-	Auth_SignUp_FullMethodName = "/auth.auth/SignUp"
+	Auth_SignIn_FullMethodName   = "/auth.auth/SignIn"
+	Auth_SignUp_FullMethodName   = "/auth.auth/SignUp"
+	Auth_EnumTest_FullMethodName = "/auth.auth/EnumTest"
 )
 
 // AuthClient is the client API for Auth service.
@@ -29,6 +30,7 @@ const (
 type AuthClient interface {
 	SignIn(ctx context.Context, in *SignInReq, opts ...grpc.CallOption) (*SignInRes, error)
 	SignUp(ctx context.Context, in *SignUpReq, opts ...grpc.CallOption) (*SignUpRes, error)
+	EnumTest(ctx context.Context, in *EnumReq, opts ...grpc.CallOption) (*EnumRes, error)
 }
 
 type authClient struct {
@@ -57,12 +59,22 @@ func (c *authClient) SignUp(ctx context.Context, in *SignUpReq, opts ...grpc.Cal
 	return out, nil
 }
 
+func (c *authClient) EnumTest(ctx context.Context, in *EnumReq, opts ...grpc.CallOption) (*EnumRes, error) {
+	out := new(EnumRes)
+	err := c.cc.Invoke(ctx, Auth_EnumTest_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // AuthServer is the server API for Auth service.
 // All implementations must embed UnimplementedAuthServer
 // for forward compatibility
 type AuthServer interface {
 	SignIn(context.Context, *SignInReq) (*SignInRes, error)
 	SignUp(context.Context, *SignUpReq) (*SignUpRes, error)
+	EnumTest(context.Context, *EnumReq) (*EnumRes, error)
 	mustEmbedUnimplementedAuthServer()
 }
 
@@ -75,6 +87,9 @@ func (UnimplementedAuthServer) SignIn(context.Context, *SignInReq) (*SignInRes, 
 }
 func (UnimplementedAuthServer) SignUp(context.Context, *SignUpReq) (*SignUpRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SignUp not implemented")
+}
+func (UnimplementedAuthServer) EnumTest(context.Context, *EnumReq) (*EnumRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method EnumTest not implemented")
 }
 func (UnimplementedAuthServer) mustEmbedUnimplementedAuthServer() {}
 
@@ -125,6 +140,24 @@ func _Auth_SignUp_Handler(srv interface{}, ctx context.Context, dec func(interfa
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Auth_EnumTest_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(EnumReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthServer).EnumTest(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Auth_EnumTest_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthServer).EnumTest(ctx, req.(*EnumReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Auth_ServiceDesc is the grpc.ServiceDesc for Auth service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -139,6 +172,10 @@ var Auth_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "SignUp",
 			Handler:    _Auth_SignUp_Handler,
+		},
+		{
+			MethodName: "EnumTest",
+			Handler:    _Auth_EnumTest_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
